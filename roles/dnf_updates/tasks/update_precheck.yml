@@ -1,0 +1,17 @@
+---
+- name: Get packages that can be upgraded on servers
+  become: true
+  when: ansible_facts.pkg_mgr == "dnf"
+  ansible.builtin.dnf:
+    list: updates
+  register: reg_dnf_output_all
+
+- name: Show packages to upgrade
+  when: reg_dnf_output_all.results is defined
+  ansible.builtin.debug:
+    msg: >-
+      {%- set output=[] -%}
+      {%- for p in reg_dnf_output_all.results -%}
+      {{ output.append('%-40s' % (p.name ~ '-' ~ p.version) ~ ' | repo: ' ~ p.repo) }}
+      {%- endfor -%}
+      {{ output }}

@@ -1,0 +1,20 @@
+# Playbook to update Windows and force reboot
+
+- name: Update windows
+  hosts: "{{ my_hosts | default('all') }}"
+  tasks:
+    - name: Check for available updates
+      ansible.windows.win_updates:
+        category_names: '*'
+        state: searched
+      register: update_result
+
+    - name: Install updates if there are anything to be updated
+      ansible.windows.win_updates:
+        category_names: '*'
+        state: installed
+        reboot: true
+      when: update_result.found_update_count > 0
+
+    - name: Reboot the server even if it is not required
+      ansible.windows.win_reboot:

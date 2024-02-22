@@ -1,0 +1,24 @@
+# List installed packages
+
+- name: Collect info about installed software
+  gather_facts: false
+  hosts: "{{ my_hosts | default('all') }}"
+  tasks:
+    - name: Gather list
+      ansible.windows.win_shell: Get-WmiObject -Class Win32_Product | Format-Table -AutoSize
+      register: program_list
+
+    - name: Show debug info
+      ansible.builtin.debug:
+        msg: "{{ program_list.stdout.split('\n') }}"
+
+    - name: List packages that are installed with Chocolatey
+      ignore_errors: true
+      register: ignore_errors_register
+      chocolatey.chocolatey.win_chocolatey_facts:
+
+    - name: Displays the Packages
+      ignore_errors: true
+      register: ignore_errors_register
+      ansible.builtin.debug:
+        var: ansible_chocolatey.packages

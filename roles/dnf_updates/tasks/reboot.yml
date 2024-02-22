@@ -1,0 +1,18 @@
+- name: Install/update dnf-utils on server
+  become: true
+  when: ansible_facts.pkg_mgr == "dnf"
+  ansible.builtin.dnf:
+    name: 'dnf-utils'
+    state: latest # this will also update the version, not only install it
+    update_cache: true
+
+- name: Check if a reboot is required
+  when: ansible_facts.pkg_mgr == "dnf"
+  become: true
+  ansible.builtin.command: needs-restarting -r
+  register: reg_reboot_required
+  ignore_errors: true
+  failed_when: false
+  changed_when: reg_reboot_required.rc != 0
+  notify:
+    - Reboot server

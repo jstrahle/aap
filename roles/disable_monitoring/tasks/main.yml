@@ -1,0 +1,10 @@
+- name: Disable monitoring
+  become: true
+  delegate_to: my.nagios.address.com
+  community.general.nagios:
+    action: downtime
+    comment: Ansible running updates
+    minutes: 45
+    service: host
+    host: '{{ inventory_hostname }}'
+    author: Nagios Admin

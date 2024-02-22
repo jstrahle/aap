@@ -1,0 +1,6 @@
+- name: Include multiple subtasks
+  ansible.builtin.include_tasks: "{{ item }}"
+  loop:
+    - update_precheck.yml
+    - update.yml
+    - reboot.yml

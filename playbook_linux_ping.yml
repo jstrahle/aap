@@ -1,0 +1,7 @@
+# Playbook to run simple Ansible Ping to Linux host
+
+- name: Ping linux hosts
+  hosts: "{{ my_hosts | default('all') }}"
+  tasks:
+   - name: Ping my hosts
+     ansible.builtin.ping:

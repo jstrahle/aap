@@ -1,0 +1,8 @@
+# This example uses roles and handlers to patch RHEL
+
+- name: Patch servers
+  hosts: "{{ my_hosts | default('all') }}"
+  gather_facts: true
+ 
+  roles:
+    - dnf_updates

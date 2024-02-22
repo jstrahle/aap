@@ -1,0 +1,8 @@
+# Playbook to run simple Ansible Ping to windows host
+
+- name: My first play
+  gather_facts: false
+  hosts: "{{ my_hosts | default('all') }}"
+  tasks:
+   - name: Windows ping check
+     ansible.windows.win_ping:

@@ -1,0 +1,14 @@
+# This can be utilized to install Linux subsystem feature to Windows
+
+- name: Update windows
+  hosts: "{{ my_hosts | default('all') }}"
+  tasks:
+    - name: Install Microsoft Subsystem for Linux
+      ansible.windows.win_optional_feature:
+        name: Microsoft-Windows-Subsystem-Linux
+        state: present
+      register: wsl_status
+
+    - name: Reboot if installing Linux Subsytem as feature requires it
+      ansible.windows.win_reboot:
+      when: wsl_status.reboot_required

@@ -1,0 +1,18 @@
+# This example shows how to uninstall, install and upgrade software
+# with chocolatey.chocolatey module
+
+- name: Install software with chocolatey
+  hosts: "{{ my_hosts | default('all') }}"
+  tasks:
+    - name: Uninstall notepadplusplus
+      chocolatey.chocolatey.win_chocolatey:
+        name: notepadplusplus
+        state: absent
+    - name: Install notepadplusplus version 8.6.0
+      chocolatey.chocolatey.win_chocolatey:
+        name: notepadplusplus
+        version: '8.6.0'
+    - name: Upgrade notepadplusplus to latest
+      chocolatey.chocolatey.win_chocolatey:
+        name: notepadplusplus
+        state: latest

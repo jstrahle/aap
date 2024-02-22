@@ -1,0 +1,13 @@
+- name: Upgrade all packages if there is something to be updated
+  become: true
+  register: reg_upgrade_ok
+  ansible.builtin.dnf:
+    name: "*"
+    state: latest
+  when: 
+    - (reg_dnf_output_all.results is defined) and (reg_dnf_output_all.results | length > 0)
+
+- name: Print errors if upgrade failed
+  ansible.builtin.debug:
+    msg: "Packages upgrade failed"
+  when: reg_upgrade_ok is not defined

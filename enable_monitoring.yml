@@ -1,0 +1,6 @@
+- name: Monitoring changes for servers
+  hosts: "{{ my_hosts | default('all') }}"
+  gather_facts: true
+
+  roles:
+    - enable_monitoring

@@ -1,0 +1,9 @@
+- name: Enable monitoring
+  become: true
+  delegate_to: 65.109.170.110
+  community.general.nagios:
+    action: delete_downtime
+    service: host
+    host: '{{ inventory_hostname }}'
+    comment: Ansible running updates
+    author: Nagios Admin

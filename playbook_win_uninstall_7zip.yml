@@ -1,0 +1,14 @@
+# Uninstall specific old version of 7Zip based on Product ID
+
+- name: Install software
+  hosts: "{{ my_hosts | default('all') }}"
+  tasks:
+    - name: Uninstall 7zip
+      ansible.windows.win_package:
+        product_id: '{23170F69-40C1-2702-2301-000001000000}'
+        state: absent
+      register: uninstall_result
+
+    - name: Uninstall log
+      ansible.builtin.debug:
+        var: uninstall_result

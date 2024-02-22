@@ -1,0 +1,10 @@
+collections:
+  - name: community.general
+    type: galaxy
+    source: https://hub.mylabenv.com/api/galaxy/content/community/
+  - name: ansible.posix
+    type: galaxy
+    source: https://hub.mylabenv.com/api/galaxy/content/rh-certified/
+  - name: chocolatey.chocolatey
+    type: galaxy
+    source: https://hub.mylabenv.com/api/galaxy/content/rh-certified/

@@ -1,0 +1,15 @@
+# Example push notification Playbook that can be utilized with EDA Rulebook
+
+- name: Send update
+  hosts: "{{ my_hosts | default('all') }}"
+  tasks:
+    - name: Send notification for Jarkko
+      community.general.pushover:
+        msg: "{{ ansible_eda.event.payload.message | default('This is a default message') }}"
+        app_token: "{{ apptoken }}"
+        user_key: "{{ userkey }}"
+        device: "{{ devicename }}"
+      delegate_to: localhost
+    - name: Print ansible_eda.event
+      ansible.builtin.debug:
+        msg: '{{ ansible_eda.event }}'

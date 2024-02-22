@@ -1,0 +1,26 @@
+- name: Install software
+  hosts: "{{ my_hosts | default('all') }}"
+  tasks:
+    - name: Create directory structure
+      ansible.windows.win_file:
+        path: C:\temppi2
+        state: directory
+
+    - name: Download old version of 7zip
+      ansible.windows.win_get_url:
+        url: https://www.7-zip.org/a/7z2301-x64.msi
+        dest: C:\temppi2\7z_old.msi
+
+    - name: 7zip install
+      ansible.windows.win_package:
+        path: C:\temppi2\7z_old.msi
+        state: present
+      register: install_result
+
+    - name: Install log
+      ansible.builtin.debug:
+        var: install_result
+
+    - name: Reboot if required
+      when: install_result.reboot_required = true
+      ansible.windows.win_reboot:

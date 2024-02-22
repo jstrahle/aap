@@ -1,0 +1,2 @@
+# Very simple AAP Playbooks to get started with
+The purpose of these playbooks is to give very simple examples to get started with. Playbooks might not use best practises. Please check the best practises from here: https://docs.ansible.com/ansible/latest/tips_tricks/ansible_tips_tricks.html#best-practices
